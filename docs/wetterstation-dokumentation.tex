@@ -43,12 +43,32 @@ Die "`Raspberry Pi Wetterstation"' bietet hierfür eine geeignete Grundlage; sie
 Im folgenden werden nun die für die Verwirklichung des Projektes verwendeten Hard- und Softwarekomponenten genauer beschrieben; daraufhin wird die Durchführung und Planung des Projektes erläutert.
 \pagebreak
 
+\subsection{Verwendete Hardware}
+Im folgenden Abschnitt werden die für das Projekt eingesetzten Hardwarekomponenten aufgelistet; zudem folgen Erläuterungen über deren Funktionalität sowie der Grund für das Einsetzen dieser Komponente in dem Projekt.
+
+\subsubsection{Raspberry Pi 3B+}
+Bei der Hauptkomponente des Projekts handelt es sich, wie der Name bereits vermuten lässt, um ein Raspberry Pi 3B+.
+Das Raspberry Pi ist ein sogenannter "`Einplatinencomputer"' mit einer ARM-CPU. Somit ist die Installation von gängigeren Betriebssystemem, welche hauptsächlich nur unter x86-Technologie funktionieren, nicht möglich. Stattdessen bedient man sich einer Reihe von GNU/Linux-Distributionen, die für ARM-Prozessoren ausgelegt sind; so auch das von uns eingesetzte Betriebssystem "`Raspbian"'. Bei "`Raspbian"' handelt es sich um ein speziell für das Raspberry Pi entwickeltes Debian-Derivat welches auch von den Entwicklern des Raspberry Pis empfohlen wird.
+
+Auch von den Computern selbst gibt es eine Vielzahl von unterschiedlichen Versionen von denen der Großteil für dieses Projekt in Frage kommt; die Entscheidung, die "`3B+"' Variante einzusetzen stammt daher, dass uns diese bereits zur Verfügung stand. Bei der Auswahl eines geeigneten Raspberry Pi — oder auch eines anderen Einplatinencomputers — muss jedoch darauf geachtet werden, dass diese auch "`GPIO-Pins"' (sogenannte \textit{general-purpose input output pins}) besitzen; diese werden nämlich dazu eingesetzt, die Daten der einzelnen Sensoren an den Computer zu übermitteln.
+
+Wir haben uns bewusst für diesen Einplatinencomputer entschieden — und nicht einen der vielen anderen — da es sich bei dem Raspberry Pi um den meistverbreiten Einplatinencomputer handelt; dadurch lassen sich eventuell auftretende Probleme der Soft- oder Hardwarekomponenten einfacher beheben, denn es existiert bereits eine große Online-Community mit vielen, äußerst hilfreichen, Benutzern.
+
+\subsubsection{MCP3008 Analog-Digital-Konverter (ADC)}
+Da die vorhin bereits kurz angesprochenen GPIO-Pins leider nur digitale Signale auslesen können, war es vonnöten, einen Analog-Digital-Konverter einzusetzen, welcher die analogen Signale des Regen- und Wassersensors in digitale umwandelt, mit welchen das Raspberry Pi umgehen kann.
+
+Der \textit{MCP3008} wurde ausgewählt, da er von vielen Leuten zur Verwendung mit einem Raspberry Pi empfohlen wurde und wir uns somit sicher sein konnten, dass dieser auch funktioniert.
+
+\subsubsection{LM393 Regen-/Wassersensor}
+\subsubsection{HD44780 LCD-Display}
+\subsubsection{DHT22 Feuchtigkeits-/Temperatursensor}
+
+\pagebreak
+
 \subsection{Verwendete Programme}
 \pagebreak
 
-\subsection{Verwendete Hardware}
 
-\pagebreak
 \section{Projektdurchführung}
 
 \end{document}
