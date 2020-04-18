@@ -7,6 +7,7 @@
 \usepackage{wrapfig}
 \usepackage{enumitem}
 \usepackage{amsmath}
+\usepackage[utf8x]{inputenc}
 \makeindex
 
 \begin{document}
@@ -41,11 +42,11 @@ Ein weiterer Vorteil besteht darin, die Temperatur- und Luftfeuchtigkeitsdaten i
 
 Die "`Raspberry Pi Wetterstation"' bietet hierfür eine geeignete Grundlage; sie ermittelt die Wetterdaten anhand von Sensoren — dessen genaue Bezeichnungen und Funktionen im späteren Verlaufe dieser Dokumentation noch ausführlicher erklärt werden — und gibt diese auf einem LCD-Bildschirm aus. Weitere Funktionen lassen sich aufgrund des einfach zu programmierenden Raspberry Pi ohne großen Aufwand hinzufügen.
 
-Im folgenden werden nun die für die Verwirklichung des Projektes verwendeten Hard- und Softwarekomponenten genauer beschrieben; daraufhin wird die Durchführung und Planung des Projektes erläutert.
+Im Folgenden werden nun die für die Verwirklichung des Projektes verwendeten Hard- und Softwarekomponenten genauer beschrieben; daraufhin wird die Durchführung und Planung des Projektes erläutert.
 \pagebreak
 
 \subsection{Verwendete Hardware}
-Im folgenden Abschnitt werden die für das Projekt eingesetzten Hardwarekomponenten aufgelistet; zudem folgen Erläuterungen über deren Funktionalität sowie der Grund für das Einsetzen dieser Komponente in dem Projekt.
+Im Folgenden Abschnitt werden die für das Projekt eingesetzten Hardwarekomponenten aufgelistet; zudem folgen Erläuterungen über deren Funktionalität sowie der Grund für das Einsetzen dieser Komponente in dem Projekt.
 
 \subsubsection{Raspberry Pi 3B+}
 Bei der Hauptkomponente des Projekts handelt es sich, wie der Name bereits vermuten lässt, um ein Raspberry Pi 3B+.
@@ -61,14 +62,24 @@ Da die vorhin bereits kurz angesprochenen GPIO-Pins leider nur digitale Signale 
 Der \textit{MCP3008} wurde ausgewählt, da er von vielen Leuten zur Verwendung mit einem Raspberry Pi empfohlen wurde und wir uns somit sicher sein konnten, dass dieser auch funktioniert.
 
 \subsubsection{LM393 Regen-/Wassersensor}
-\subsubsection{HD44780 LCD-Display}
-\subsubsection{DHT22 Feuchtigkeits-/Temperatursensor}
 
+
+\subsubsection{HD44780 LCD-Display}
+Um dem Benutzer Informationen zu der aktuellen Wetterlage anzuzeigen — was vor allem im Betrieb innerhalb eines Gebäudes geeignet ist — wurde auch ein LCD-Bildschirm an den Raspberry Pi angeschlossen.
+Hier haben wir uns für das einfache 2 x 16 Zeichen Display \textit{HD44780} entschieden.
+
+\subsubsection{DHT22 Feuchtigkeits-/Temperatursensor}
+Die allerwichtigste Komponente einer Wetterstation ist der Temperatur- und Luftfeuchtigkeitssensor. Wir entschieden uns hier für den sehr weitverbreiteten \textit{DHT22}-Sensor. 
+
+Dieser kann in einem Temperaturbereich von -40°C bis zu +80°C arbeiten und ist somit auch in Gebieten und Räumen mit extremen Temperaturbedingungen geeignet. 
 \pagebreak
 
-\subsection{Verwendete Programme}
+\subsection{Verwendete Software}
+Um das Projekt zu verwirklichen kommen verschiedenste Softwarekomponenten zum Einsatz; diese werden im Folgenden aufgelistet und deren Funktion kurz erläutert.
+
 \pagebreak
 
 \section{Projektdurchführung}
-
+Wegen der, zu dem Zeitpunkt der Projektdurchführung laufenden, Kontaktsperre aufgrund von Sars-CoV-2 / COVID-19, musste die Projektplanung hauptsächlich dezentral geschehen.
+Es wurde daher auf diverse Online-Tools zurückgegriffen, um diese dezentrale Planung einfacher zu bewerkstelligen.
 \end{document}
