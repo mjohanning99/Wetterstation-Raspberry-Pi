@@ -1,18 +1,19 @@
 \documentclass[a4paper,12pt]{article}
 
-\usepackage{fancyhdr}
-\usepackage[german]{babel}
+\usepackage{fancyhdr} %For nicer headers
+\usepackage[german]{babel} %For German quotation marks and other language-related things
+% Use "` "' for German-style quotation marks!
 \usepackage{microtype}
-\usepackage{graphicx}
-\usepackage{wrapfig}
+\usepackage{graphicx} % For images
+\usepackage{wrapfig} % For wrapping text around images
 \usepackage{enumitem}
 \usepackage{amsmath}
-\usepackage[utf8x]{inputenc}
+\usepackage[utf8x]{inputenc} %UTF-8 support
 \makeindex
 
 \begin{document}
 
-\pagenumbering{gobble}
+\pagenumbering{gobble} %No page numbers for the front matter
 \title{\textbf{Raspberry Pi Wetterstation}}
 \author{Von Leon Lepa, Oliver Winkler und Marvin Johanning}
 \date{April 2020}
@@ -23,6 +24,7 @@
 \tableofcontents
 \pagebreak
 
+% Header and Footer settings
 \setlength{\headheight}{15.2pt}
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{2pt}
@@ -71,7 +73,7 @@ Hier haben wir uns für das einfache 2 x 16 Zeichen Display \textit{HD44780} ent
 \subsubsection{DHT22 Feuchtigkeits-/Temperatursensor}
 Die allerwichtigste Komponente einer Wetterstation ist der Temperatur- und Luftfeuchtigkeitssensor. Wir entschieden uns hier für den sehr weitverbreiteten \textit{DHT22}-Sensor. 
 
-Dieser kann in einem Temperaturbereich von -40°C bis zu +80°C arbeiten und ist somit auch in Gebieten und Räumen mit extremen Temperaturbedingungen geeignet. 
+Dieser kann in einem Temperaturbereich von -40°C bis zu +80°C arbeiten und ist somit auch in Gebieten und Räumen mit extremen Temperaturbedingungen geeignet. Zudem ist der Sensor alle zwei Sekunden auslesbar und kann dadurch für sehr zeitnahe Temperatur- und Feuchtigkeitsmessungen eingesetzt werden.
 \pagebreak
 
 \subsection{Verwendete Software}
@@ -82,4 +84,25 @@ Um das Projekt zu verwirklichen kommen verschiedenste Softwarekomponenten zum Ei
 \section{Projektdurchführung}
 Wegen der, zu dem Zeitpunkt der Projektdurchführung laufenden, Kontaktsperre aufgrund von Sars-CoV-2 / COVID-19, musste die Projektplanung hauptsächlich dezentral geschehen.
 Es wurde daher auf diverse Online-Tools zurückgegriffen, um diese dezentrale Planung einfacher zu bewerkstelligen.
+
+Im Folgenden werden die eingesetzten Tools aufgelistet und kurz beschrieben.
+
+\subsection{WhatsApp}
+Um Informationen zu sammeln und uns untereinander auszutauschen wurde der Instant-Messenger-Dienst "`WhatsApp"' eingesetzt. Dort werden Dinge besprochen, für welche eine Videokonferenz nicht sinnvoll wäre, beispielsweise kurze Informationen oder interessante Links.
+
+\subsection{Jitsi}
+Videokonferenzen werden meist mithilfe von "`Jitsi"' bewerkstelligt.
+
+Der Vorteil von \textit{Jitsi} anderen Videokonferenzdiensten gegenüber ist, dass es sich hierbei um eine Ende-zu-Ende-Verschlüsselung handelt; hierdurch wird das Abhören von Gesprächen erschwert und ist somit so gut wie unmöglich. Zudem ist das Erstellen eines Benutzerkontos nicht vonnöten, wodurch weniger persönliche Daten weitergegeben werden müssen. Ein weiterer Vorteil ist, dass es sich bei \textit{Jitsi} um quelloffene (\textit{open source}) Software handelt — also Software, dessen Quellcode eingesehen werden kann — und somit das Risiko einer "`Backdoor"' sehr gering ist.
+
+\subsection{Git / GitLab}
+Für die Planung von Aufgaben und das Verwalten des Quellcodes der für die Wetterstation benötigten Programme sowie für die Dokumentation wird GitLab eingesetzt.
+
+Bei Git handelt es sich um ein sogenanntes \textit{Versionskontrollsystem}, das die Verwaltung und Kollaboration der Code-Base vereinfacht. 
+Das gesamte Projekt kann als \textit{Repository} auf einer Git-Seite — in unserem Falle GitLab — angelegt werden; dort werden die Daten dann zentral gespeichert.
+Zudem hat jede an dem Projekt arbeitende Partei eine lokale Kopie dieses Repositorys, an welchem Veränderungen getätigt und dann auf das \textit{Remote Repository} — also die auf einem fernen Server liegende Version des Repositorys — \textit{gepusht}, also hochgeladen, werden können.
+
+Die lokalen Veränderungen an der Code-Base werden von der jeweiligen Person in einem sogenannten \textit{Commit} gespeichert und kurz beschrieben; dies macht es möglich, ohne Mühe auf eine ältere Version der Code-Base umzuschalten, falls sich die neuen Änderungen als schlecht ausgegeben haben.
+
+
 \end{document}
