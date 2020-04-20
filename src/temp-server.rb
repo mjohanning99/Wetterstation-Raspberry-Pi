@@ -12,7 +12,7 @@ while session = server.accept
   session.print "Content-Type: text/html\r\n" # To tell the server it's serving HTML 
   session.print "\r\n" # A new line
 
-  val = DhtSensor.read(4,22) # Get the data from the DHT22 from pinout 4
+  sensor = DhtSensor.read(4,22) # Get the data from the DHT22 from pinout 4
   session.print "<meta http-equiv='refresh' content='2' />" # For refreshing the page every two seconds to get new temperature data
 
   session.print "<h2>Raspberry Pi Wetterstation</h2>"
@@ -21,9 +21,9 @@ while session = server.accept
   session.print "Das aktuelle Datum und die aktuelle Uhrzeit betraegt: #{Time.now}" # Print current time
   session.print "<br>" 
 
-  session.print "Temperatur: #{val.temp.to_i}*C" # Print current temperature
+  session.print "Temperatur: #{sensor.temp.to_i}*C" # Print current temperature
   session.print "<br>"
-  session.print "Luftfeuchtigkeit: #{val.humidity.to_i}%" # Print current humidity
+  session.print "Luftfeuchtigkeit: #{sensor.humidity.to_i}%" # Print current humidity
   
   session.close
 end
