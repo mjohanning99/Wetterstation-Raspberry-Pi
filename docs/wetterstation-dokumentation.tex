@@ -79,8 +79,17 @@ Dieser kann in einem Temperaturbereich von -40°C bis zu +80°C arbeiten und ist
 \subsection{Verwendete Software}
 Um das Projekt zu verwirklichen kommen verschiedenste Softwarekomponenten zum Einsatz; diese werden im Folgenden aufgelistet und deren Funktion kurz erläutert.
 
-\pagebreak
+\subsubsection{Ruby als Webserver und zum Auslesen des DHT22}
+Um eine einfache Webseite mit den Temperatur- und Luftfeuchtigkeitsverhältnissen zu erstellen, wurde die Programmiersprache \textit{Ruby} unter Zuhilfenahme eines sogenannten \textit{Gems} — also eines Pakets, dass die Funktionen der Programmiersprache erweitert — benutzt. Dieses Paket wurde mit der eingebauten Ruby \textit{socket}-Funktion verbunden um einen HTTP-Server zu betreiben, der die aus dem Sensor ausgelesenen Daten auf einer Webseite präsentiert.
 
+Dieser Gem, welcher den Namen \textit{dht-sensor-ffi} trägt, stellt einfache Mittel dafür bereit, den digitalen DHT22-Sensor auszulesen.\\
+So ist es möglich, mithilfe der \texttt{DhtSensor}-Klasse die Temperatur und Luftfeuchtigkeit auszulesen; es muss lediglich die \texttt{read()}-Methode benutzt und dieser mitgeteilt werden, an welchem Pin der Sensor angeschlossen ist und zudem auch welcher Sensor benutzt wird (es gibt unter anderem auch noch den DHT11). 
+
+Soll beispielsweise die Temperatur eines DHT22-Sensors ausgelesen werden, der mit Pin Nr. 4 des Raspberry Pis verbunden ist, so genügt folgende Codezeile: \texttt{DhtSensor.read(4,22).temperature}. Zudem muss der Gem auch in der Datei geladen werden; dies ist mithilfe der \texttt{require}-Funktion folgendermaßen möglich: \texttt{require 'dht-sensor-ffi'}.
+
+Damit es der Programmiersprache jedoch überhaupt möglich ist, die einzelnen GPIO-Pins des Raspberry Pis auszulesen, ist eine in C geschrieben Bibliothek notwendig, welche Zugriff auf diese Pins gewährt; eine Kopie dieser Bibliothek ist auch im Projektordner im \textit{lib}-Unterverzeichnis anzufinden. Weitere Informationen über die Bibliothek und dessen Installation sind dort anzutreffen.
+
+\pagebreak
 \section{Projektdurchführung}
 Wegen der, zu dem Zeitpunkt der Projektdurchführung laufenden, Kontaktsperre aufgrund von Sars-CoV-2 / COVID-19, musste die Projektplanung hauptsächlich dezentral geschehen.
 Es wurde daher auf diverse Online-Tools zurückgegriffen, um diese dezentrale Planung einfacher zu bewerkstelligen.
