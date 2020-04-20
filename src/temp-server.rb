@@ -16,8 +16,11 @@ while session = server.accept
   session.print "<meta http-equiv='refresh' content='2' />" # For refreshing the page every two seconds to get new temperature data
 
   session.print "<h2>Raspberry Pi Wetterstation</h2>"
+  session.print "<hr>"
+
   session.print "Das aktuelle Datum und die aktuelle Uhrzeit betraegt: #{Time.now}" # Print current time
   session.print "<br>" 
+
   session.print "Temperatur: #{val.temp.to_i}*C" # Print current temperature
   session.print "<br>"
   session.print "Luftfeuchtigkeit: #{val.humidity.to_i}%" # Print current humidity
