@@ -15,7 +15,7 @@
 
 \pagenumbering{gobble} %No page numbers for the front matter
 \title{\textbf{Raspberry Pi Wetterstation}}
-\author{Von Leon Lepa, Oliver Winkler und Marvin Johanning}
+\author{Von Leon Lepa, Oliver Winkler und Marvin Johanning\\IT-Systemelektroniker der ISE9a des CSBME}
 \date{April 2020}
 \maketitle
 \abstract{Dieses Dokument dient zur Dokumentation des Aufbaus sowie der Programmierung einer Wetterstation, die mithilfe eines Raspberry Pis verwirklicht wurde. Zudem wird die Durchführung sowie die verwendeten Hard- und Softwarekomponenten beschrieben.}
@@ -42,7 +42,7 @@ Der Besitz einer privaten Wetterstation jedoch macht es möglich, die genauen We
 
 Ein weiterer Vorteil besteht darin, die Temperatur- und Luftfeuchtigkeitsdaten in einem geschlossenen Raum ermitteln zu können und bei Überschreiten eines Grenzwertes z. B. einen Alarm erschallen zu lassen. Dies könnte beispielsweise in Gewächshäusern oder auch Serverräumen zum Einsatz kommen und somit möglicherweise teuren Hardwaretausch — aufgrund von Überhitzung — entgegenkommen.
 
-Die "`Raspberry Pi Wetterstation"' bietet hierfür eine geeignete Grundlage; sie ermittelt die Wetterdaten anhand von Sensoren — dessen genaue Bezeichnungen und Funktionen im späteren Verlaufe dieser Dokumentation noch ausführlicher erklärt werden — und gibt diese auf einem LCD-Bildschirm aus. Weitere Funktionen lassen sich aufgrund des einfach zu programmierenden Raspberry Pi ohne großen Aufwand hinzufügen.
+Die "`Raspberry Pi Wetterstation"' bietet hierfür eine geeignete Grundlage; sie ermittelt die Wetterdaten anhand von Sensoren — dessen genaue Bezeichnungen und Funktionen im späteren Verlaufe dieser Dokumentation noch ausführlicher erklärt werden — und gibt diese auf einem LCD-Bildschirm aus. Zudem ist es möglich, die Wetterdaten anhand einer Webseite auszulesen, welche über die IP-Adresse des Raspberry Pis erreichbar ist. Weitere Funktionen lassen sich aufgrund des einfach zu programmierenden Raspberry Pi ohne großen Aufwand hinzufügen.
 
 Im Folgenden werden nun die für die Verwirklichung des Projektes verwendeten Hard- und Softwarekomponenten genauer beschrieben; daraufhin wird die Durchführung und Planung des Projektes erläutert.
 \pagebreak
@@ -90,7 +90,7 @@ Soll beispielsweise die Temperatur eines DHT22-Sensors ausgelesen werden, der mi
 Damit es der Programmiersprache jedoch überhaupt möglich ist, die einzelnen GPIO-Pins des Raspberry Pis auszulesen, ist eine in C geschrieben Bibliothek notwendig, welche Zugriff auf diese Pins gewährt; eine Kopie dieser Bibliothek ist auch im Projektordner im \textit{lib}-Unterverzeichnis anzufinden. Weitere Informationen über die Bibliothek und dessen Installation sind dort anzutreffen.
 
 \pagebreak
-\section{Projektdurchführung}
+\section{Projektplanung}
 Wegen der, zu dem Zeitpunkt der Projektdurchführung laufenden, Kontaktsperre aufgrund von Sars-CoV-2 / COVID-19, musste die Projektplanung hauptsächlich dezentral geschehen.
 Es wurde daher auf diverse Online-Tools zurückgegriffen, um diese dezentrale Planung einfacher zu bewerkstelligen.
 
@@ -114,7 +114,15 @@ Zudem hat jede an dem Projekt arbeitende Partei eine lokale Kopie dieses Reposit
 
 Die lokalen Veränderungen an der Code-Base werden von der jeweiligen Person in einem sogenannten \textit{Commit} gespeichert und kurz beschrieben; dies macht es möglich, ohne Mühe auf eine ältere Version der Code-Base umzuschalten, falls sich die neuen Änderungen als schlecht ausgegeben haben.
 
-\subsection{Projektplanung}
+\subsection{Projektdurchführung}
+Da uns für die Projektdurchführung aufgrund der bereits beschriebenen Viruspandemie mehr Zeit verschafft wurde, war es uns möglich, die Arbeit an dem Projekt auf mehrere Tage zu verteilen. 
 
+Zuallererst wurde mit dem Schreiben der Dokumentation sowie mit dem Zusammenstellen des Raspberry Pi mit dem DHT22-Sensor begonnen. Dies ging ohne größere Probleme vonstatten.
+
+Das Herausfinden von Informationen über das LCD-Display gestaltete sich allerdings schwieriger; der Link zu einer Online-Anleitung, welche dem LCD-Display beilag, war leider nicht erreichbar; dies führte dazu, dass wir gezwungen waren, uns die nötigen Informationen anderweitig zu beschaffen.
+die Informationen über den Regensensor gefunden wurden, wurde klar, dass der Analog-Digital-Konverter nicht gebraucht wurde; dies liegt daran, dass der Regensensor bereits einen digitalen Ausgang zur Verfügung stellt. Somit war es möglich, den Regensensor direkt auszulesen, ohne die Signale in digitale umzuwandeln.
+
+\pagebreak
+\section{Fazit}
 
 \end{document}
