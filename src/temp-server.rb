@@ -1,10 +1,13 @@
 #!/usr/bin/ruby
 
+
 require 'dht-sensor-ffi' # For reading the DHT22 data
 require 'socket' # For creating an HTTP server
 server = TCPServer.new 80 # Create a new TCP server on port 80
 
 while session = server.accept
+  regen = `sudo python regen.py`
+
   request = session.gets
   puts request
 
@@ -24,6 +27,9 @@ while session = server.accept
   session.print "Temperatur: #{sensor.temp.to_i}*C" # Print current temperature
   session.print "<br>"
   session.print "Luftfeuchtigkeit: #{sensor.humidity.to_i}%" # Print current humidity
+
+  session.print "<br>"
+  session.print "Regen: #{regen}"
   
   session.close
 end
