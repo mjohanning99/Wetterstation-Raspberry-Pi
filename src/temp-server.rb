@@ -1,12 +1,11 @@
 #!/usr/bin/ruby
 
-
 require 'dht-sensor-ffi' # For reading the DHT22 data
 require 'socket' # For creating an HTTP server
 server = TCPServer.new 80 # Create a new TCP server on port 80
 
 while session = server.accept
-  regen = `sudo python regen.py`
+  regen = `sudo python /home/marvin/Projekt/wetterstation-raspberry-pi/src/regen.py`
 
   request = session.gets
   puts request
