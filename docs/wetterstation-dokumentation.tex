@@ -1,4 +1,5 @@
 \documentclass[a4paper,12pt]{article}
+\special{papersize=210mm,297mm}
 
 \usepackage{fancyhdr} %For nicer headers
 \usepackage[german]{babel} %For German quotation marks and other language-related things
@@ -9,6 +10,7 @@
 \usepackage{enumitem}
 \usepackage{amsmath}
 \usepackage[utf8x]{inputenc} %UTF-8 support
+%\usepackage[top=1in,bottom=1.25in, left=1.25in, right=1.25in]{geometry} % Smaller margins
 \makeindex
 
 \begin{document}
@@ -92,7 +94,7 @@ Soll beispielsweise die Temperatur eines DHT22-Sensors ausgelesen werden, der mi
 Damit es der Programmiersprache jedoch überhaupt möglich ist, die einzelnen GPIO-Pins des Raspberry Pis auszulesen, ist eine in C geschrieben Bibliothek notwendig, welche Zugriff auf diese Pins gewährt; eine Kopie dieser Bibliothek ist auch im Projektordner im \textit{lib}-Unterverzeichnis anzufinden. Weitere Informationen über die Bibliothek und dessen Installation sind dort anzutreffen.
 
 \subsubsection{Python zum Auslesen des LM393}
-Um den Status des LM393 auszulesen wurde Python verwendet; die \texttt{regen.py}-Datei liest den GPIO-Pin Nr. 13 aus und falls sich dieser \textit{high} — also falls auf diesem 5 V anliegen — so gibt die Datei "`Es regnet"' aus; andernfalls wird "`Es regnet nicht"' ausgegeben.
+Um den Status des LM393 auszulesen wurde Python verwendet; die \texttt{regen.py}-Datei liest den GPIO-Pin Nr. 13 aus und falls dessen Status \textit{high} — also falls auf diesem 5 V anliegen — ist, so gibt die Datei "`Es regnet"' aus; andernfalls wird "`Es regnet nicht"' ausgegeben.
 
 Diese Datei wurde mit in die Datei eingebunden, welche den Server betreibt, sodass auch auf der Webseite diese Regeninformationen angezeigt werden können.
 
@@ -103,9 +105,14 @@ Ein Display kann mithilfe von \texttt{display = I2C::Drivers::SS1602::Display.ne
 Dies wurde mit dem \textit{dht-sensor-ffi}-Gem sowie mit dem Python-Script \texttt{regen.py} verknüpft, sodass der Bildschirm Zugriff auf die Wetterinformationen hat und dann in der Lage dazu ist, diese auszugeben.
 
 \subsubsection{VNC für Fernzugriff}
-Um auf das Raspberry Pi auch außerhalb des eigenen Netzwerkes zugreifen zu können wird VNC benutzt; dies hat den Vorteil, dass keine Netzwerkeinstellungen geändert werden müssen. Es wird lediglich ein VNC-Account mit Zugriff auf die von uns angelegte Gruppe benötigt.
+Um auf das Raspberry Pi auch außerhalb des eigenen Netzwerkes zugreifen zu können wird VNC benutzt; dies hat den Vorteil, dass keine Netzwerkeinstellungen geändert werden müssen. Es wird bloß ein VNC-Account mit Zugriff auf die von uns angelegte Gruppe benötigt.
 
-Nach einer erfolgreichen Verbindung muss lediglich der Browser geöffnet und auf \texttt{localhost} gegangen werden; die Wetterinformation werden dann angezeigt.
+Nach einer erfolgreichen Verbindung muss lediglich der Browser geöffnet und \texttt{localhost} aufgerufen werden; die Wetterinformation werden dann angezeigt auf einer einfachen HTML-Seite angezeigt.
+
+\subsubsection{Cronjobs}
+Es wurden außerdem zwei sogenannte \textit{Cronjobs} angelegt, welche die nötigen Scripts automatisch beim Starten des Raspberry Pi mitstarten; somit ist es nicht nötig, diese manuell zu starten. 
+
+Ein neuer Cronjob wird mithilfe des Kommandos \texttt{sudo crontab -e} erstellt — dieses öffnet einen Editor — und es wurden folgende Einträge erstellt (wobei \texttt{/pfad/zu/} mit dem tatsächlichen Pfad ersetzt werden muss): \texttt{@reboot sudo ruby /pfad/zu/display.rb} und \texttt{@reboot sudo ruby \\/pfad/zu/temp-server.rb}
 
 \pagebreak
 \section{Projektplanung}
@@ -137,8 +144,9 @@ Da uns für die Projektdurchführung aufgrund der bereits beschriebenen Viruspan
 
 Zuallererst wurde mit dem Schreiben der Dokumentation sowie mit dem Zusammenstellen des Raspberry Pi mit dem DHT22-Sensor begonnen. Dies ging ohne größere Probleme vonstatten.
 
-Das Herausfinden von Informationen über das LCD-Display gestaltete sich allerdings schwieriger; der Link zu einer Online-Anleitung, welche dem LCD-Display beilag, war leider nicht erreichbar; dies führte dazu, dass wir gezwungen waren, uns die nötigen Informationen anderweitig zu beschaffen.
-die Informationen über den Regensensor gefunden wurden, wurde klar, dass der Analog-Digital-Konverter nicht gebraucht wurde; dies liegt daran, dass der Regensensor bereits einen digitalen Ausgang zur Verfügung stellt. Somit war es möglich, den Regensensor direkt auszulesen, ohne die Signale in digitale umzuwandeln.
+Das Herausfinden von Informationen über das LCD-Display gestaltete sich allerdings schwieriger. Der Link zu einer Online-Anleitung, welche dem LCD-Display beilag, war leider nicht erreichbar; dies führte dazu, dass wir gezwungen waren, uns die nötigen Informationen anderweitig zu beschaffen.
+
+Auch das Beschaffen von Informationen über den Regensensor gestaltete sich etwas schwierig; vor allem, da wir uns sehr unsicher waren, wie der Analog-Digital-Konverter mit dem Regensensor verknüpft werden muss. Nach weiterer Recherche wurden jedoch Informationen gefunden und es wurde klar, dass der Analog-Digital-Konverter nicht gebraucht wurde; dies liegt daran, dass der Regensensor bereits einen digitalen Ausgang zur Verfügung stellt. Somit war es möglich, den Regensensor direkt auszulesen, ohne die Signale in digitale umzuwandeln.
 
 Nachdem sich herausstellte, dass das von uns gekaufte Display eine I²C-Schnittstelle besitzt, wurde das Finden von relevanten Informationen deutlich einfacher und bald darauf wurde ein passender Ruby-Gem gefunden. Zuallererst musste jedoch der Pin-Header, der dem LCD beilag und der die I²C-Schnittstelle ansprechen kann, angelötet werden.
 
