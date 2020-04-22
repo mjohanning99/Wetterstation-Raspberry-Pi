@@ -64,7 +64,9 @@ Da die vorhin bereits kurz angesprochenen GPIO-Pins leider nur digitale Signale 
 Der \textit{MCP3008} wurde ausgewählt, da er von vielen Leuten zur Verwendung mit einem Raspberry Pi empfohlen wurde und wir uns somit sicher sein konnten, dass dieser auch funktioniert.
 
 \subsubsection{LM393 Regen-/Wassersensor}
+Bei einem LM393 handelt es sich einen sogenannten \textit{Komparator}, welcher lediglich einen Spannungsunterschied misst; sobald ein Spannungsunterschied vorliegt, wird ein Signal ausgesendet, welches von dem Raspberry Pi ausgelesen werden kann.
 
+Wir haben uns für den LM393 entschieden, da er perfekt für unsere Anwendung geeignet ist.
 
 \subsubsection{HD44780 LCD-Display}
 Um dem Benutzer Informationen zu der aktuellen Wetterlage anzuzeigen — was vor allem im Betrieb innerhalb eines Gebäudes geeignet ist — wurde auch ein LCD-Bildschirm an den Raspberry Pi angeschlossen.
@@ -77,7 +79,7 @@ Dieser kann in einem Temperaturbereich von -40°C bis zu +80°C arbeiten und ist
 \pagebreak
 
 \subsection{Verwendete Software}
-Um das Projekt zu verwirklichen kommen verschiedenste Softwarekomponenten zum Einsatz; diese werden im Folgenden aufgelistet und deren Funktion kurz erläutert.
+Um das Projekt zu verwirklichen kommen verschiedenste Softwarekomponenten zum Einsatz; diese werden im Folgenden aufgelistet und deren Funktion kurz erläutert. 
 
 \subsubsection{Ruby als Webserver und zum Auslesen des DHT22}
 Um eine einfache Webseite mit den Temperatur- und Luftfeuchtigkeitsverhältnissen zu erstellen, wurde die Programmiersprache \textit{Ruby} unter Zuhilfenahme eines sogenannten \textit{Gems} — also eines Pakets, dass die Funktionen der Programmiersprache erweitert — benutzt. Dieses Paket wurde mit der eingebauten Ruby \textit{socket}-Funktion verbunden um einen HTTP-Server zu betreiben, der die aus dem Sensor ausgelesenen Daten auf einer Webseite präsentiert.
@@ -88,6 +90,22 @@ So ist es möglich, mithilfe der \texttt{DhtSensor}-Klasse die Temperatur und Lu
 Soll beispielsweise die Temperatur eines DHT22-Sensors ausgelesen werden, der mit Pin Nr. 4 des Raspberry Pis verbunden ist, so genügt folgende Codezeile: \texttt{DhtSensor.read(4,22).temperature}. Zudem muss der Gem auch in der Datei geladen werden; dies ist mithilfe der \texttt{require}-Funktion folgendermaßen möglich: \texttt{require 'dht-sensor-ffi'}.
 
 Damit es der Programmiersprache jedoch überhaupt möglich ist, die einzelnen GPIO-Pins des Raspberry Pis auszulesen, ist eine in C geschrieben Bibliothek notwendig, welche Zugriff auf diese Pins gewährt; eine Kopie dieser Bibliothek ist auch im Projektordner im \textit{lib}-Unterverzeichnis anzufinden. Weitere Informationen über die Bibliothek und dessen Installation sind dort anzutreffen.
+
+\subsubsection{Python zum Auslesen des LM393}
+Um den Status des LM393 auszulesen wurde Python verwendet; die \texttt{regen.py}-Datei liest den GPIO-Pin Nr. 13 aus und falls sich dieser \textit{high} — also falls auf diesem 5 V anliegen — so gibt die Datei "`Es regnet"' aus; andernfalls wird "`Es regnet nicht"' ausgegeben.
+
+Diese Datei wurde mit in die Datei eingebunden, welche den Server betreibt, sodass auch auf der Webseite diese Regeninformationen angezeigt werden können.
+
+\subsubsection{Ruby zum Betreiben des LCD}
+Auch um Informationen auf dem LCD anzuzeigen wurde Ruby verwendet; auch hier war ein Gem namens \textit{i2c-ss1602} vonnöten, der mit dem I²C-Bus des Bildschirms kommunizieren kann.
+Ein Display kann mithilfe von \texttt{display = I2C::Drivers::SS1602::Display.new\\('/dev/i2c-1', 0x27)} initialisiert werden und Text wird auf dem LCD unter Zuhilfenahme von der \texttt{text()}-Methode auf den Bildschirm geschrieben.
+
+Dies wurde mit dem \textit{dht-sensor-ffi}-Gem sowie mit dem Python-Script \texttt{regen.py} verknüpft, sodass der Bildschirm Zugriff auf die Wetterinformationen hat und dann in der Lage dazu ist, diese auszugeben.
+
+\subsubsection{VNC für Fernzugriff}
+Um auf das Raspberry Pi auch außerhalb des eigenen Netzwerkes zugreifen zu können wird VNC benutzt; dies hat den Vorteil, dass keine Netzwerkeinstellungen geändert werden müssen. Es wird lediglich ein VNC-Account mit Zugriff auf die von uns angelegte Gruppe benötigt.
+
+Nach einer erfolgreichen Verbindung muss lediglich der Browser geöffnet und auf \texttt{localhost} gegangen werden; die Wetterinformation werden dann angezeigt.
 
 \pagebreak
 \section{Projektplanung}
@@ -122,7 +140,16 @@ Zuallererst wurde mit dem Schreiben der Dokumentation sowie mit dem Zusammenstel
 Das Herausfinden von Informationen über das LCD-Display gestaltete sich allerdings schwieriger; der Link zu einer Online-Anleitung, welche dem LCD-Display beilag, war leider nicht erreichbar; dies führte dazu, dass wir gezwungen waren, uns die nötigen Informationen anderweitig zu beschaffen.
 die Informationen über den Regensensor gefunden wurden, wurde klar, dass der Analog-Digital-Konverter nicht gebraucht wurde; dies liegt daran, dass der Regensensor bereits einen digitalen Ausgang zur Verfügung stellt. Somit war es möglich, den Regensensor direkt auszulesen, ohne die Signale in digitale umzuwandeln.
 
+Nachdem sich herausstellte, dass das von uns gekaufte Display eine I²C-Schnittstelle besitzt, wurde das Finden von relevanten Informationen deutlich einfacher und bald darauf wurde ein passender Ruby-Gem gefunden. Zuallererst musste jedoch der Pin-Header, der dem LCD beilag und der die I²C-Schnittstelle ansprechen kann, angelötet werden.
+
 \pagebreak
 \section{Fazit}
+Die Projektdurchführung verlief nicht ganz ohne Probleme; diese konnten jedoch zügig erkannt und ausgebessert werden. 
+
+Allerdings stellt sich heraus, dass sich die Arbeit an einem Gruppenprojekt deutlich schwieriger gestaltet, wenn es nicht möglich ist, sich persönlich zu treffen; und auch wenn die beschriebenen Tools sehr dabei geholfen haben, so ist es doch ziemlich ungewohnt, damit zu arbeiten.
+
+Jedoch ist uns nun klar, dass bei dem nächsten Projekt mehr Recherchen durchgeführt werden sollten, bevor Hardwarekomponenten gekauft werden; so war es beispielsweise unnötig, den Analog-Digital-Konverter zu kaufen, da der Regensensor bereits, anders als zuerst angenommen, einen digitalen Ausgang besitzt.
+
+Unserer Meinung nach war dieses Projekt jedoch erfolgreich; es wurde eine funktionierende Wetterstation gebaut, welche auch aus dem Internet heraus erreichbar ist. Zudem wurden hilfreiche Dinge gelernt, welche die kommenden Projektdurchführungen stark erleichtern sollten.
 
 \end{document}
